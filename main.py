@@ -71,22 +71,52 @@ for city in citySet:
     fileCount += 1
 
 def retrieveJobTitle(div):
-    #TODO
+    for a in div.find_all(name = 'a', attrs = {'data-tn-element' : 'jobTitle'}):
+        return (a['title'])
+    return 'NOT FOUND'
 
 def retrieveCompany(div):
-    #TODO
+    company = div.find_all(name = 'span', attrs = {'class' : 'company'})
+    if len(company) > 0:
+        for b in company:
+            return (b.text.strip())
+    else:
+        sec_try = dv.find_all(name = 'span', attrs = {'class':'result-link-source'})
+        for span in sec_try:
+            return (span.text.strip())
+    return 'NOT FOUND'
 
 def retrieveSummary(div):
-    #TODO
+    spans = div.findAll('span', attrs = {'class' : 'summary'});
+    for span in spans:
+        return (a['title'])
+    return 'NOT FOUND'
 
 def retrieveSalary(div):
-    #TODO
+    try:
+        return (div.find('nobr').text)
+    except:
+        try:
+            div_two = div.find(name='div', attrs={'class':'sjcl'})
+            div_three = div_two.find('div')
+            salaries.append(div_three.text.strip())
+        except:
+            return ('NOT FOUND')
+    return 'NOT FOUND'
 
 def retrieveLink(div): 
-    #TODO
+    for a in div.find_all(name='a', attrs={'data-tn-element':'jobTitle'}):
+        return (a['href'])
+    return('NOT FOUND')
 
 def retrieveDate(div):
-    #TODO
+    try:
+        spans = div.findAll('span', attrs={'class': 'date'})
+        for span in spans:
+            return (span.text.strip())
+    except:
+        return 'NOT FOUND'
+    return 'NOT FOUND'
 
 def writeToLog(text):
     f = open('log,txt', 'a')
